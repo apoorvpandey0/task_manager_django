@@ -1,0 +1,57 @@
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Todo app</title>
+</head>
+
+<body>
+    <h1>This is home view from index.html template </h1>
+
+    <h1>Add Todo</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{forms|crispy}}
+        <button type="submit">Submit todo</button>
+    </form>
+
+    <h1>All tasks</h1>
+    <ul>
+        {% for todo in todoitems  %}
+            
+            {% if todo.completed %}
+                <li>
+                    <strike>{{todo.title}}</strike>
+                </li> 
+            {% else %}
+                <li>{{todo.title}}</li> 
+            {% endif %}
+            
+            <!-- Method 1 -->
+            <!-- <form action="/remove/{{todo.id}}" method="post">
+                {% csrf_token %}
+                <button type="submit">remove</button>
+            </form> -->
+
+            <!-- Method 2 -->
+            <a href="/remove/{{todo.id}}" ><button type="submit">remove</button></a>
+
+        {% endfor %}
+
+    </ul>
+
+    <br>
+
+    <h1>Completed tasks</h1>
+    {% for item in completed  %}
+
+        <h2>{{item.title}} and {{item.completed}}</h2>
+        
+    {% endfor %}
+    
+</body>
+</html>
