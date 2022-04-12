@@ -45,5 +45,11 @@ def aboutview(request):
     # return HttpResponse('This is my about page')
     return render(request, 'todoapp/about.html')
 
+def completeview(request,item_id):
+    item = TodoItem.objects.get(id=item_id)
+    item.completed = not item.completed
+    item.save()
+    return redirect('home')
+
 def htmldemoview(request):
     return render(request,'todoapp/demo.html')
