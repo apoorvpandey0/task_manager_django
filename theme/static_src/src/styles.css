@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .todoitem{
-    @apply my-2 shadow-md rounded hover:shadow-lg p-2 flex flex-wrap justify-between;
+    @apply my-2 rounded shadow-md  hover:shadow-lg p-2 flex flex-wrap justify-between;
 }

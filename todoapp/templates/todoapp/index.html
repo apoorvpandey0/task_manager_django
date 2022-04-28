@@ -14,15 +14,33 @@
 <body>
     <h1 class=" flex justify-center text-2xl hover:bg-yellow-100 bg-slate-200 py-4">Task manager app in Python</h1>
 
-    <div class=" grid grid-cols-3 divide-x-2 mx-2 my-4">
+    <div class=" grid sm:grid-cols-3 divide-x-2 mx-2 my-4 ">
         <div class="px-4">
             <h1 class="flex justify-center text-xl font-bold">Add task</h1>
 
             <form method="POST" class="rounded shadow-md px-4 py-4">
                 {% csrf_token %}
-                {{forms.title|add_class:"bg-slate-100  py-2 px-4 rounded my-2 w-full"}}
-                {{forms.description|add_class:"bg-slate-100  py-2 px-4 rounded my-2 w-full"}}
-                {{forms.priority|add_class:"bg-slate-100  py-2 px-4 rounded mb-4 w-full"}}
+                
+                {% if forms.title.errors %}
+                    {{forms.title|add_class:"bg-red-100  py-2 px-4 rounded mb-2 w-full"}}
+                {% else %}
+                    {{forms.title|add_class:"bg-slate-100  py-2 px-4 rounded mb-2 w-full"}}
+                {% endif %}
+
+                {{forms.description|add_class:"bg-slate-100  py-2 px-4 rounded mb-2 w-full"}}
+                
+                {% if forms.priority.errors %}
+                    <div class="mb-4">
+                        {{forms.priority|add_class:"bg-red-100  py-2 px-4 rounded w-full"}}
+                        
+                        {% for error in forms.priority.errors  %}
+                            <p class="text-xs text-red-600">{{error}}</p>    
+                        {% endfor %}                            
+                        
+                    </div>
+                {% else %}
+                    {{forms.priority|add_class:"bg-slate-100  py-2 px-4 rounded mb-4 w-full"}}
+                {% endif %}
                 
                 <div class="flex justify-center">
                     <button class=" rounded bg-green-400 hover:bg-green-500 py-2 px-4 text-lg hover:text-white text-black" type="submit">Submit todo</button>

@@ -19,8 +19,8 @@ def homeview(request):
         if form.is_valid():
             form.save()
             return redirect('home')
-        
-    form = TodoItemForm()
+    else:
+        form = TodoItemForm()
 
     context = {
         'todoitems': items,
