@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path,include
 from todoapp.views import *
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homeview,name= 'home'),
@@ -26,4 +29,4 @@ urlpatterns = [
     path('htmldemo/',htmldemoview),
     path("__reload__/", include("django_browser_reload.urls")),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
